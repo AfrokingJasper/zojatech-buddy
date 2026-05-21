@@ -40,8 +40,9 @@ export default function Signup() {
     e.preventDefault();
     if (!isFilled) return;
     const newErrors: { [k: string]: string } = {};
-    if (!firstName.trim()) newErrors.firstName = "Please enter your first name";
-    if (!lastName.trim()) newErrors.lastName = "Please enter your last name";
+    if (!firstName.trim())
+      newErrors.first_name = "Please enter your first name";
+    if (!lastName.trim()) newErrors.last_name = "Please enter your last name";
     if (!email.trim()) {
       newErrors.email = "Please enter your work email address";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -66,14 +67,14 @@ export default function Signup() {
     });
   };
 
-  const inputStyles = (field: string) =>
+  const inputStyles = (field: keyof typeof errors) =>
     `w-full pl-11 pr-12 py-3 text-[0.875rem] text-text-main rounded-xl border bg-white dark:bg-[#13141a] text-[#1D1D18] dark:text-white transition-all duration-200 font-sans text-sm focus:outline-none hover:bg-[#FFF9F2] dark:hover:bg-[#FF8600]/5 hover:border-primary/50 ${
       errors[field]
         ? "border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900/30"
         : "border-neutral-200 dark:border-[#2e303a] focus:border-primary focus:ring-2 focus:ring-primary/20"
     }`;
 
-  const labelStyles = (field: string, value: string) =>
+  const labelStyles = (field: keyof typeof focusedFields, value: string) =>
     `absolute pointer-events-none transition-all duration-500 ease-in-out font-sans select-none ${
       focusedFields[field] || value !== ""
         ? "left-0 top-[-22px] text-[0.875rem] text-[#5B6871] font-semibold"
@@ -178,15 +179,21 @@ export default function Signup() {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         onFocus={() =>
-                          setFocusedFields((p) => ({ ...p, firstName: true }))
+                          setFocusedFields((prev) => ({
+                            ...prev,
+                            first_name: true,
+                          }))
                         }
                         onBlur={() =>
-                          setFocusedFields((p) => ({ ...p, firstName: false }))
+                          setFocusedFields((prev) => ({
+                            ...prev,
+                            first_name: false,
+                          }))
                         }
                         placeholder=""
-                        className={inputStyles("firstName")}
+                        className={inputStyles("first_name")}
                       />
-                      <label className={labelStyles("firstName", firstName)}>
+                      <label className={labelStyles("first_name", firstName)}>
                         First Name
                       </label>
                     </div>
@@ -207,15 +214,21 @@ export default function Signup() {
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         onFocus={() =>
-                          setFocusedFields((p) => ({ ...p, lastName: true }))
+                          setFocusedFields((prev) => ({
+                            ...prev,
+                            last_name: true,
+                          }))
                         }
                         onBlur={() =>
-                          setFocusedFields((p) => ({ ...p, lastName: false }))
+                          setFocusedFields((prev) => ({
+                            ...prev,
+                            last_name: false,
+                          }))
                         }
                         placeholder=""
-                        className={inputStyles("lastName")}
+                        className={inputStyles("last_name")}
                       />
-                      <label className={labelStyles("lastName", lastName)}>
+                      <label className={labelStyles("last_name", lastName)}>
                         Last Name
                       </label>
                     </div>

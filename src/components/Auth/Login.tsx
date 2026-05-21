@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
 import {
   GrayMailIcon,
@@ -42,14 +42,14 @@ export default function Login() {
     await login({ email, password });
   };
 
-  const emailInputStyle = (field: string) =>
+  const emailInputStyle = (field: keyof typeof errors) =>
     `w-full h-[40px] pl-11 pr-12 py-3 rounded-xl border bg-white dark:bg-[#13141a] text-[#1D1D18] dark:text-white font-sans text-sm focus:outline-none transition-all duration-200 hover:bg-[#FFF9F2] dark:hover:bg-[#FF8600]/5 hover:border-primary/50 ${
       errors[field]
         ? "border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900/30"
         : "border-neutral-200 dark:border-[#2e303a] focus:border-primary focus:ring-2 focus:ring-primary/20"
     }`;
 
-  const labelStyles = (field: string, value: string) =>
+  const labelStyles = (field: keyof typeof focusedFields, value: string) =>
     `absolute pointer-events-none transition-all duration-500 ease-in-out font-sans select-none ${
       focusedFields[field] || value !== ""
         ? "left-0 top-[-22px] text-[0.875rem] text-[#5B6871] font-semibold"
