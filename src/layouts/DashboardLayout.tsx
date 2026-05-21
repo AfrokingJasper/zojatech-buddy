@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import buddyLogo from "../assets/images/buddy-logo.png";
+import buddyLogo from "../assets/Images/buddy-logo.png";
 import {
   MyPortfolioIcon,
   MyGroupIcon,
