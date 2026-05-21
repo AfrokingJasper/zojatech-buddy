@@ -19,7 +19,7 @@ export default function WatchlistItem({
   const color = isPositive ? "#00A441" : "#FF5252";
 
   return (
-    <div className="flex items-center h-[96px] justify-between rounded-3xl bg-[#F6F6F6] px-4 w-[290px] shrink-0">
+    <div className="flex items-center h-[96px] py-2 px-3 justify-between rounded-3xl bg-[#F6F6F6] w-full shrink-0">
       <div className="flex flex-col gap-2 w-[96px] shrink-0">
         <div className="flex items-center gap-6 w-full justify-between pr-1">
           <p className="text-base font-semibold leading-[100%] text-[#3B3B45]">

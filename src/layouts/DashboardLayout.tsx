@@ -105,7 +105,7 @@ export default function DashboardLayout() {
           </div>
           <button
             type="button"
-            className=" w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition hover:bg-[#e17100]"
+            className=" w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition hover:bg-primary hover:text-white"
           >
             Logout
           </button>

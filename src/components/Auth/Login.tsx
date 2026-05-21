@@ -22,6 +22,8 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    navigate("/dashboard");
     if (!isFilled) return;
     const newErrors: { [k: string]: string } = {};
     if (!email.trim()) {
@@ -71,7 +73,7 @@ export default function Login() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-[30px]">
-              <div className="flex flex-col gap-[25px]">
+              <div className="flex flex-col gap-3">
                 <div className="group relative pt-5">
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#B0BABF] transition-colors duration-200">
@@ -221,13 +223,6 @@ export default function Login() {
                 ) : (
                   "Sign in"
                 )}
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate("/dashboard")}
-                className="w-full py-3.5 px-4 h-[40px] rounded-xl border border-primary bg-white text-primary text-sm font-semibold transition-all duration-200 hover:bg-primary/5"
-              >
-                Continue to dashboard
               </button>
             </form>
           </div>

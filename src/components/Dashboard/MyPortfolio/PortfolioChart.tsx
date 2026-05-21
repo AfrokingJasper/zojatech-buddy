@@ -124,8 +124,22 @@ const CustomTooltip = ({ active, payload }: any) => {
             animation: "tooltip-fade-in 0.15s ease-out forwards",
           }}
         >
-          <div style={{ fontSize: "16px", fontWeight: "600", color: "#FFFFFF" }}>{value}</div>
-          <div style={{ fontSize: "12px", opacity: 0.8, marginTop: "2px", fontWeight: "400", color: "#FFFFFF" }}>{title}</div>
+          <div
+            style={{ fontSize: "16px", fontWeight: "600", color: "#FFFFFF" }}
+          >
+            {value}
+          </div>
+          <div
+            style={{
+              fontSize: "12px",
+              opacity: 0.8,
+              marginTop: "2px",
+              fontWeight: "400",
+              color: "#FFFFFF",
+            }}
+          >
+            {title}
+          </div>
 
           <div
             style={{
@@ -156,7 +170,7 @@ export default function PortfolioChart() {
   const data = useMemo(() => chartData[activeProvider], [activeProvider]);
 
   return (
-    <div className="rounded-[32px] border border-neutral-200 bg-white p-6">
+    <div className="rounded-[16px] bg-white p-6 h-[320px]">
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <p className="text-xl  font-bold leading-[133%] text-[#3B3B45]">
           Overview
@@ -168,10 +182,11 @@ export default function PortfolioChart() {
               key={key}
               type="button"
               onClick={() => setActiveProvider(key)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeProvider === key
-                ? "bg-primary text-white"
-                : "bg-[#F6F6F6] text-text-main"
-                }`}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                activeProvider === key
+                  ? "bg-primary text-white"
+                  : "bg-[#F6F6F6] text-text-main"
+              }`}
             >
               {label}
             </button>
@@ -179,14 +194,14 @@ export default function PortfolioChart() {
         </div>
       </div>
 
-      <div className="rounded-[32px] border border-neutral-200 bg-[#FCFCFC] p-6">
+      <div className="p-6">
         <div className="grid grid-cols-[60px_minmax(0,1fr)] gap-4">
           <div className="flex flex-col justify-between text-xs leading-[1.7] text-text-main">
             {scaleSteps.map((step) => (
               <span key={step}>{step}</span>
             ))}
           </div>
-          <div className="h-[320px] w-full">
+          <div className="h-[224px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data}
@@ -205,6 +220,7 @@ export default function PortfolioChart() {
                   dataKey="month"
                   axisLine={false}
                   tickLine={false}
+                  fontSize={"11px"}
                   tick={{ fill: "#6B7280" }}
                   tickFormatter={(value) =>
                     typeof value === "string" ? value.toUpperCase() : value
@@ -222,7 +238,9 @@ export default function PortfolioChart() {
                   {data.map((entry, index) => (
                     <Cell
                       key={`actual-${index}`}
-                      fill={hoveredMonth === entry.month ? "#FFB800" : "#F1F1F2"}
+                      fill={
+                        hoveredMonth === entry.month ? "#FFB800" : "#F1F1F2"
+                      }
                     />
                   ))}
                 </Bar>
@@ -230,7 +248,9 @@ export default function PortfolioChart() {
                   {data.map((entry, index) => (
                     <Cell
                       key={`benchmark-${index}`}
-                      fill={hoveredMonth === entry.month ? "#FF8600" : "#E6E6E7"}
+                      fill={
+                        hoveredMonth === entry.month ? "#FF8600" : "#E6E6E7"
+                      }
                     />
                   ))}
                 </Bar>

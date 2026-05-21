@@ -1,4 +1,8 @@
 import WatchlistItem from "./WatchlistItem";
+import { FaceBookIcon, InstagramIcon, LinkedinIcon } from "../../Common/Icons";
+import elonMuskImg from "../../../assets/Images/elon-musk.png";
+import russiaNews from "../../../assets/Images/russia-news.png";
+import fuelCrisis from "../../../assets/Images/fuel-crisis.png";
 
 const aaplData = [
   { value: 20 },
@@ -28,10 +32,12 @@ const bplData = [
 
 export default function PortfolioAside() {
   return (
-    <aside className="w-[330px] shrink-0 space-y-6">
-      <div className="w-[330px] rounded-[32px] border border-neutral-200 bg-white px-5 py-6">
+    <aside className="w-[330px] shrink-0 space-y-4">
+      <div className=" flex flex-col gap-4 justify-center w-[330px] rounded-[16px] bg-white p-5">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-text-h">Watchlist</p>
+          <p className="text-xl font-bold text-[#3B3B45] leading-[133%]">
+            Watchlist
+          </p>
           <button
             type="button"
             className="text-xs font-semibold text-primary bg-transparent p-0 border-none cursor-pointer hover:underline"
@@ -39,7 +45,7 @@ export default function PortfolioAside() {
             View all
           </button>
         </div>
-        <div className="mt-5 space-y-4">
+        <div className="flex flex-col gap-3">
           <WatchlistItem
             symbol="AAPL"
             price="$142.90"
@@ -56,23 +62,114 @@ export default function PortfolioAside() {
           />
         </div>
       </div>
-      <div className="w-[330px] rounded-[32px] border border-neutral-200 bg-white px-5 py-6">
-        <p className="text-sm font-semibold text-text-h">Top holdings</p>
-        <ul className="mt-5 space-y-4 text-sm text-text-main">
-          <li className="flex items-center justify-between">
-            <span>Apple</span>
-            <span className="font-semibold">24%</span>
-          </li>
-          <li className="flex items-center justify-between">
-            <span>Tesla</span>
-            <span className="font-semibold">18%</span>
-          </li>
-          <li className="flex items-center justify-between">
-            <span>Amazon</span>
-            <span className="font-semibold">14%</span>
-          </li>
+
+      <div className="flex flex-col gap-4 w-[330px] rounded-[16px] bg-white p-5">
+        <p className="text-xl font-bold text-[#3B3B45] leading-[133%]">
+          Revenue
+        </p>
+        <ul className="flex flex-col gap-3">
+          {revenueItems.map((revenueItem) => (
+            <li
+              key={revenueItem.id}
+              className="flex items-center justify-between border border-[#F1F1F1] py-2 px-4 rounded-xl shadow-[4px_5px_58px_0px_rgba(0,0,0,0.08)]"
+            >
+              <div className="flex flex-col gap-1">
+                <span className="font-semibold text-[#3B3B45] text-base leading-[133%]">
+                  ${revenueItem.value}
+                </span>
+                <span className="text-xs text-[#A3A3A6] leading-[137%]">
+                  {revenueItem.title}
+                </span>
+              </div>
+
+              <div
+                className="flex items-center justify-center rounded-full"
+                style={{
+                  backgroundColor: revenueItem.color,
+                  height: "48px",
+                  width: "48px",
+                }}
+              >
+                {revenueItem.icon}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col gap-4 w-[330px] rounded-[16px] bg-white p-5">
+        <p className="text-xl font-bold text-[#3B3B45] leading-[133%]">
+          Trending News
+        </p>
+        <ul className="flex flex-col gap-3">
+          {newsItems.map((newsItem) => (
+            <li
+              key={newsItem.id}
+              className="flex items-center gap-2 border border-[#F1F1F1] p-3 rounded-xl shadow-[4px_5px_58px_0px_rgba(0,0,0,0.08)]"
+            >
+              <img
+                src={newsItem.image}
+                alt={newsItem.title}
+                className="w-12 h-12 rounded-lg"
+              />
+              <div className="flex flex-col gap-1">
+                <span className="font-semibold text-[#3B3B45] text-[0.875rem] leading-[100%]">
+                  {newsItem.title}
+                </span>
+                <span className="text-xs text-[#818187] leading-[140%] font-light line-clamp-1">
+                  {newsItem.subtitle}
+                </span>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </aside>
   );
 }
+
+const newsItems = [
+  {
+    id: "1",
+    title: "Russia & Ukraine War",
+    subtitle:
+      "Marketing is evolving. It's changing every day as a result of the war",
+    image: russiaNews,
+  },
+  {
+    id: "2",
+    title: "Elon Musk bought Twitter",
+    subtitle: "Twitter is the most useful social platform as of 2022",
+    image: elonMuskImg,
+  },
+  {
+    id: "3",
+    title: "Fuel Crisis Everywhere",
+    subtitle: "Due to covid situation in 2020 the demand of oil reduced",
+    image: fuelCrisis,
+  },
+];
+
+const revenueItems = [
+  {
+    id: "1",
+    title: "Recently Added Pages",
+    value: "4000",
+    icon: <FaceBookIcon />,
+    color: "#1773EA14",
+  },
+  {
+    id: "2",
+    title: "Video Monetization",
+    value: "2120",
+    icon: <InstagramIcon />,
+    color: "#EB334814",
+  },
+  {
+    id: "3",
+    title: "Community Buildup",
+    value: "1752",
+    icon: <LinkedinIcon />,
+    color: "#2764AC14",
+  },
+];
