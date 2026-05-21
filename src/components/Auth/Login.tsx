@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 import {
   GrayMailIcon,
   PadlockIcon,
@@ -8,7 +9,7 @@ import {
 } from "../Common/Icons";
 
 export default function Login() {
-  const navigate = useNavigate();
+  const { login, isLoading, error: apiError, fieldErrors } = useLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,14 +17,14 @@ export default function Login() {
     {},
   );
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<{ [k: string]: string }>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [localErrors, setLocalErrors] = useState<{ [k: string]: string }>({});
   const isFilled = email.trim() !== "" && password !== "";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const errors = { ...localErrors, ...fieldErrors };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    navigate("/dashboard");
     if (!isFilled) return;
     const newErrors: { [k: string]: string } = {};
     if (!email.trim()) {
@@ -33,25 +34,22 @@ export default function Login() {
     }
     if (!password) newErrors.password = "Password is required";
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+      setLocalErrors(newErrors);
       return;
     }
-    setErrors({});
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/verify-otp", { state: { email } });
-    }, 1500);
+    setLocalErrors({});
+
+    await login({ email, password });
   };
 
-  const emailInputStyle = (field: string) =>
+  const emailInputStyle = (field: keyof typeof errors) =>
     `w-full h-[40px] pl-11 pr-12 py-3 rounded-xl border bg-white dark:bg-[#13141a] text-[#1D1D18] dark:text-white font-sans text-sm focus:outline-none transition-all duration-200 hover:bg-[#FFF9F2] dark:hover:bg-[#FF8600]/5 hover:border-primary/50 ${
       errors[field]
         ? "border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900/30"
         : "border-neutral-200 dark:border-[#2e303a] focus:border-primary focus:ring-2 focus:ring-primary/20"
     }`;
 
-  const labelStyles = (field: string, value: string) =>
+  const labelStyles = (field: keyof typeof focusedFields, value: string) =>
     `absolute pointer-events-none transition-all duration-500 ease-in-out font-sans select-none ${
       focusedFields[field] || value !== ""
         ? "left-0 top-[-22px] text-[0.875rem] text-[#5B6871] font-semibold"
@@ -60,7 +58,7 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-[489px] p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
-      <div className="flex flex-col gap-[64px] w-[389px] h-[420px]">
+      <div className="flex flex-col gap-[64px] w-[389px]">
         <div className="flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[16px]">
             <div className="space-y-2">
@@ -73,6 +71,11 @@ export default function Login() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-[30px]">
+              {apiError && (
+                <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-900/30">
+                  {apiError}
+                </div>
+              )}
               <div className="flex flex-col gap-3">
                 <div className="group relative pt-5">
                   <div className="relative">
