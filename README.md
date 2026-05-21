@@ -3,4 +3,5 @@
 4. try to implement google signup
 5. make custom inputs to lighen code later
 7. add cming soon notifcation with nice animation to the inactive pages
+add share feature
 -->
