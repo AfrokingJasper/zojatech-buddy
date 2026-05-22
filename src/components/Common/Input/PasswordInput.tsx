@@ -27,8 +27,8 @@ export default function PasswordInput({
 
   const sizeStyles = {
     sm: "h-[40px] py-2",
-    md: "h-[46px] py-3",
-    lg: "h-[52px] py-4",
+    md: "h-[40px] py-3",
+    lg: "h-[40px] py-4",
   };
 
   return (
