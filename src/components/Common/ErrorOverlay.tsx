@@ -27,7 +27,7 @@ export default function ErrorOverlay() {
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-xl font-bold text-text-thick dark:text-white font-sans">
+          <h2 className="text-xl font-bold! text-text-thick dark:text-white font-sans">
             Screen Size Too Small
           </h2>
           <p className="text-sm text-text-main dark:text-gray-400 font-sans leading-relaxed">

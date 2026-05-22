@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import type { EmojiClickData } from "emoji-picker-react";
 import toast from "react-hot-toast";
 import type { Chat, Message as MessageType } from "../../../types/chat";
-import {
-  HeartIcon,
-  SearchIcon,
-  NotificationIcon,
-} from "../../Common/Icons";
+import { HeartIcon, SearchIcon, NotificationIcon } from "../../Common/Icons";
 import ChatInputBar from "./ChatInputBar";
 
 function RealAudioPlayer({ src }: { src: string }) {
@@ -335,7 +331,7 @@ export default function ChatBox({
   };
 
   return (
-    <div className="w-[796px] bg-[#FAFAFA] flex flex-col h-full overflow-hidden rounded-xl pb-4 p-6">
+    <div className="w-[796px] font-inter bg-[#FAFAFA] flex flex-col h-full overflow-hidden rounded-xl pb-4 p-6">
       <div className="p-4 border-b border-[#D9D9D9] flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative">

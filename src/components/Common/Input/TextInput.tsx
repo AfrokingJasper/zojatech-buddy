@@ -30,8 +30,8 @@ export default function TextInput({
 
   const sizeStyles = {
     sm: "h-[40px] py-2",
-    md: "h-[46px] py-3",
-    lg: "h-[52px] py-4",
+    md: "h-[40px] py-3",
+    lg: "h-[40px] py-4",
   };
 
   const inputStyle = `w-full h-full pl-11 pr-4 bg-transparent text-[#1D1D18] dark:text-white font-sans text-sm focus:outline-none transition-all duration-200`;

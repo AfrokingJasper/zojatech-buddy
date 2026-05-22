@@ -1,3 +1,7 @@
+import "@fontsource-variable/mulish";
+import "@fontsource-variable/lexend";
+import "@fontsource-variable/inter";
+
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -13,5 +17,5 @@ createRoot(document.getElementById("root")!).render(
         <App />
       </PersistGate>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

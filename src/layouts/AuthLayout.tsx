@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import buddyLogo from "../assets/Images/buddy-logo.png";
 import { CheckboxIcon, ChatIcon } from "../components/Common/Icons";
+import ErrorOverlay from "../components/Common/ErrorOverlay";
 
 export default function AuthLayout() {
   const location = useLocation();
@@ -9,6 +10,7 @@ export default function AuthLayout() {
 
   return (
     <div className="flex h-screen max-h-screen min-h-screen overflow-hidden  dark:bg-[#13141a] transition-colors duration-300">
+      <ErrorOverlay />
       <div className="hidden lg:flex lg:w-[calc(690/1400*100%)] relative bg-white dark:bg-[#181920] p-6 sm:p-12 lg:pt-[100.779388427734375px] lg:pl-[100.779388427734375px] lg:pr-[100.779388427734375px] lg:pb-12 flex-col justify-between h-full overflow-hidden border-r border-neutral-100 dark:border-[#2e303a]/40 text-left">
         <div className="flex items-center gap-3 z-10">
           <img

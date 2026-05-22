@@ -58,7 +58,7 @@ export default function DashboardLayout() {
     : "Fortune Oliseyenum";
 
   return (
-    <div className="h-screen overflow-hidden flex bg-[#F6F6F6] text-text-main">
+    <div className="h-screen font-lexend overflow-hidden flex bg-[#F6F6F6] text-text-main">
       <ErrorOverlay />
       <aside className="w-[250px] min-w-[250px] border-r border-neutral-200 bg-white flex flex-col h-full">
         <div className="flex items-center gap-3 px-5 py-6 pt-7">
@@ -118,17 +118,23 @@ export default function DashboardLayout() {
             />
           </div>
           <div className="flex flex-col items-center gap-1 pt-6 px-4">
-            <p className="text-base text-[#3B3B45] font-medium leading-[137%] text-text-h truncate max-w-[170px]" title={userName}>
+            <p
+              className="text-base text-[#3B3B45] font-medium leading-[137%] text-text-h truncate max-w-[170px]"
+              title={userName}
+            >
               {userName}
             </p>
-            <p className="text-xs text-[#818187] truncate max-w-[170px]" title={user?.email || "Software Developer"}>
+            <p
+              className="text-xs text-[#818187] truncate max-w-[170px]"
+              title={user?.email || "Software Developer"}
+            >
               {user?.email || "Software Developer"}
             </p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="flex items-center justify-center gap-1 w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition hover:bg-primary hover:text-white"
+            className="flex items-center justify-center gap-1 w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition"
           >
             <LogoutIcon />
             Logout
@@ -202,7 +208,7 @@ export default function DashboardLayout() {
         }`}
       >
         <div className="flex items-center justify-between p-6 border-b border-neutral-100">
-          <h2 className="text-[1.25rem] font-bold text-text-h">
+          <h2 className="text-[1.25rem] font-bold! text-text-h">
             Notifications
           </h2>
           <button
