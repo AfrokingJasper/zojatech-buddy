@@ -1,30 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #FF8600;
-  --color-text-main: #5B6871;
-  --color-text-thick: #1D1D18;
-  --font-sans: "Mulish", system-ui, -apple-system, sans-serif;
+  --color-primary: #ff8600;
+  --color-text-main: #5b6871;
+  --color-text-thick: #1d1d18;
+  --font-sans: "Mulish Variable", system-ui, -apple-system, sans-serif;
+  --font-lexend: "Lexend Variable", system-ui, -apple-system, sans-serif;
+  --font-inter: "Inter Variable", system-ui, -apple-system, sans-serif;
   --text-sm: 0.8125rem;
   --text-base: 1.125rem;
 }
 
 :root {
-  --text: #5B6871;
-  --text-h: #1D1D18;
+  --text: #5b6871;
+  --text-h: #1d1d18;
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
-  --accent: #FF8600;
+  --accent: #ff8600;
   --accent-bg: rgba(255, 134, 0, 0.1);
   --accent-border: rgba(255, 134, 0, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: "Mulish", system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: "Mulish", system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: "Mulish Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: "Mulish Variable", system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 13px/145% var(--sans);
@@ -45,7 +46,7 @@
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
-    --accent: #FF8600;
+    --accent: #ff8600;
     --accent-bg: rgba(255, 134, 0, 0.15);
     --accent-border: rgba(255, 134, 0, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
@@ -89,9 +90,9 @@ h1 {
 }
 
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
+  /* font-size: 24px; */
+  line-height: 24px;
+  letter-spacing: 1.1%;
   margin: 0 0 8px;
 
   @media (max-width: 1024px) {
@@ -133,8 +134,12 @@ code {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fade-in {

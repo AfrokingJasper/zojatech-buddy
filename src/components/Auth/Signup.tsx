@@ -83,7 +83,7 @@ export default function Signup() {
         <div className="flex flex-col gap-[33px]">
           <div className="flex flex-col gap-[16px]">
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left m-0">
+              <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans text-left m-0">
                 Register your account
               </h2>
               <p className="text-sm text-text-main dark:text-gray-400 font-sans text-left">
@@ -211,7 +211,7 @@ export default function Signup() {
 const RegOptions = ({ setStep }: { setStep: (step: "email") => void }) => {
   return (
     <div className="w-full max-w-[489px] p-[20px] sm:p-[40px] xl:p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
-      <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left mb-8">
+      <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans text-left mb-8">
         Register your account
       </h2>
 

@@ -117,7 +117,7 @@ export default function VerifyOtp() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-[34px]">
           <div className="flex flex-col gap-[24px]">
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
+              <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans m-0">
                 Verify your email
               </h2>
               <p className="text-sm text-text-main dark:text-gray-400 font-sans leading-relaxed">
@@ -231,7 +231,7 @@ const VerificationSuccess = ({
       <EmailVerifiedIcon className="" />
 
       <div className="flex flex-col gap-2 h-[78px] text-center">
-        <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
+        <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans m-0">
           Email verified !
         </h2>
         <p className="text-sm text-text-main dark:text-gray-400 font-sans leading-relaxed">
@@ -263,7 +263,7 @@ const ConfirmVerification = ({
       <SentEmailIcon className="" />
 
       <div className="flex flex-col gap-2 w-[310px] text-center mb-8">
-        <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
+        <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans m-0">
           Confirm your email
         </h2>
         <p className="text-[0.875rem] text-text-main dark:text-gray-400 font-sans leading-relaxed">

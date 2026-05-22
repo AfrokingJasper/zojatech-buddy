@@ -25,7 +25,7 @@ export default function ChatList({
   onChatSelect,
 }: ChatListProps) {
   return (
-    <div className="w-[296px] shrink-0 p-4 bg-[#FAFAFA] flex flex-col h-full overflow-hidden rounded-xl">
+    <div className="w-[296px] font-inter shrink-0 p-4 bg-[#FAFAFA] flex flex-col h-full overflow-hidden rounded-xl">
       <div className="p-4 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative">

@@ -58,7 +58,7 @@ export default function Login() {
         <div className="flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[16px]">
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left m-0">
+              <h2 className="text-2xl font-bold! text-text-thick dark:text-white font-sans text-left m-0">
                 Log in to your account
               </h2>
               <p className="text-sm text-text-main dark:text-gray-400 font-sans text-left">

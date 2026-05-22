@@ -11,7 +11,7 @@ export default function ComingSoon() {
         />
       </div>
       <div className="text-center">
-        <h2 className="text-[1.5rem] font-bold text-[#3B3B45]">Coming Soon</h2>
+        <h2 className="text-[1.5rem] font-bold! text-[#3B3B45]">Coming Soon</h2>
         <p className="mx-auto mt-2 max-w-[320px] text-base leading-[160%] text-[#818187]">
           We&apos;re currently working on something awesome here. Stay tuned and
           check back later for the update!
