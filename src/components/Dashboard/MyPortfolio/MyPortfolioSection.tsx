@@ -22,21 +22,21 @@ export default function MyPortfolioSection() {
           <PortfolioStatCard
             title="Total Channels"
             figure="51"
-            icon={<ChannelsIcon />}
+            icon={<ChannelsIcon className="w-4 h-4 xl:w-5 xl:h-5" />}
             baseColor="#00D5AA"
             lightColor="#E0FAF5"
           />
           <PortfolioStatCard
             title="New Members"
             figure="125"
-            icon={<MembersIcon />}
+            icon={<MembersIcon className="w-4 h-4 xl:w-5 xl:h-5" />}
             baseColor="#7B91F7"
             lightColor="#EFF2FE"
           />
           <PortfolioStatCard
             title="All Impressions"
             figure="789"
-            icon={<ImpressionIcon />}
+            icon={<ImpressionIcon className="w-4 h-4 xl:w-5 xl:h-5" />}
             baseColor="#FF8600"
             lightColor="#FFF0E0"
           />
@@ -62,7 +62,7 @@ export default function MyPortfolioSection() {
                     {post.content}
                   </p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   <div className="flex items-center gap-1 rounded-[17px] bg-[#F6F6F6] py-1 px-2.5">
                     <span>❤️</span>
                     <span className="text-[#3B3B45] text-xs font-normal leading-[149%]">
@@ -92,7 +92,7 @@ export default function MyPortfolioSection() {
             Trending posts
           </p>
 
-          <ul className="grid grid-cols-5 gap-2">
+          <ul className="grid grid-cols-3 xl:grid-cols-5 gap-2">
             {potentialMembers.map((member) => (
               <li
                 key={member.id}

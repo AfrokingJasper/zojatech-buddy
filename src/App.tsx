@@ -6,6 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import VerifyOtpPage from "./pages/VerifyOtpPage";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import PublicRoute from "./components/Common/PublicRoute";
 import {
   MyPortfolioPage,
   MyGroupPage,
@@ -20,9 +21,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Authentication Flow Layout */}
+        <Route element={<PublicRoute />}>
+          <Route element={<AuthLayout />}>
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
+        </Route>
+
+        {/* Verify OTP Route */}
         <Route element={<AuthLayout />}>
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/verify-otp" element={<VerifyOtpPage />} />
         </Route>
 

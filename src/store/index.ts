@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import authReducer from "./slices/authSlice";
+import chatReducer from "./slices/chatSlice";
 
 const encryptor = encryptTransform({
   secretKey: import.meta.env.VITE_ENCRYPTION_KEY,
@@ -44,6 +45,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
+    chat: chatReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

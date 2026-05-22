@@ -82,6 +82,10 @@ export default function VerifyOtp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // to bypass OTP verification for now
+    setIsSuccess(true);
+    return;
     const otpCode = otp.join("");
     if (otpCode.length < 4) {
       setLocalErrors("Please enter the full 4-digit verification code");
