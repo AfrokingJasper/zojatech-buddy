@@ -74,69 +74,7 @@ export default function Signup() {
   };
 
   if (step === "select") {
-    return (
-      <div className="w-full max-w-[489px] p-[20px] sm:p-[40px] xl:p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
-        <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left mb-8">
-          Register your account
-        </h2>
-
-        <div className="space-y-4">
-          <button
-            type="button"
-            onClick={() => setStep("email")}
-            className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 text-text-thick dark:text-white font-semibold text-sm transition-all cursor-pointer bg-white dark:bg-[#181920] hover:border-primary/50 group duration-200"
-          >
-            <MailIcon className="w-5 h-5 text-text-thick dark:text-white transition-transform duration-200 group-hover:scale-110" />
-            Sign up with email
-          </button>
-
-          <div className="relative flex items-center justify-center my-6 py-2">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-200 dark:border-neutral-800" />
-            </div>
-            <span className="relative px-3 bg-white dark:bg-[#181920] text-xs text-text-main dark:text-gray-500 font-sans font-medium uppercase tracking-wider">
-              or
-            </span>
-          </div>
-
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 text-text-thick dark:text-white font-semibold text-sm transition-all cursor-pointer bg-white dark:bg-[#181920] hover:border-primary/50 group duration-200"
-          >
-            <GoogleIcon className="w-6 h-6 transition-transform duration-200 group-hover:scale-110" />
-            Sign up with Google
-          </button>
-        </div>
-
-        <div className="mt-8 text-left text-sm text-text-main dark:text-gray-400 font-sans leading-normal">
-          By clicking the button above, you agree to our{" "}
-          <a
-            href="#terms"
-            className="text-primary hover:underline font-semibold transition-colors"
-          >
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a
-            href="#privacy"
-            className="text-primary hover:underline font-semibold transition-colors"
-          >
-            Privacy Policy
-          </a>
-          .
-        </div>
-
-        <div className="mt-8 text-left text-[0.875rem] text-text-main dark:text-gray-400 font-sans border-t border-neutral-100 dark:border-neutral-800 pt-6">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-primary font-semibold hover:underline transition-colors"
-          >
-            Login
-          </Link>
-        </div>
-      </div>
-    );
+    return <RegOptions setStep={setStep} />;
   }
 
   return (
@@ -269,3 +207,70 @@ export default function Signup() {
     </div>
   );
 }
+
+const RegOptions = ({ setStep }: { setStep: (step: "email") => void }) => {
+  return (
+    <div className="w-full max-w-[489px] p-[20px] sm:p-[40px] xl:p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
+      <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left mb-8">
+        Register your account
+      </h2>
+
+      <div className="space-y-4">
+        <button
+          type="button"
+          onClick={() => setStep("email")}
+          className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 text-text-thick dark:text-white font-semibold text-sm transition-all cursor-pointer bg-white dark:bg-[#181920] hover:border-primary/50 group duration-200"
+        >
+          <MailIcon className="w-5 h-5 text-text-thick dark:text-white transition-transform duration-200 group-hover:scale-110" />
+          Sign up with email
+        </button>
+
+        <div className="relative flex items-center justify-center my-6 py-2">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-neutral-200 dark:border-neutral-800" />
+          </div>
+          <span className="relative px-3 bg-white dark:bg-[#181920] text-xs text-text-main dark:text-gray-500 font-sans font-medium uppercase tracking-wider">
+            or
+          </span>
+        </div>
+
+        <button
+          type="button"
+          disabled={true}
+          className="w-full cursor-not-allowed flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 text-text-thick dark:text-white font-semibold text-sm transition-all bg-white dark:bg-[#181920] hover:border-primary/50 group duration-200"
+        >
+          <GoogleIcon className="w-6 h-6 transition-transform duration-200 group-hover:scale-110" />
+          Sign up with Google
+        </button>
+      </div>
+
+      <div className="mt-8 text-left text-sm text-text-main dark:text-gray-400 font-sans leading-normal">
+        By clicking the button above, you agree to our{" "}
+        <a
+          href="#terms"
+          className="text-primary hover:underline font-semibold transition-colors"
+        >
+          Terms of Service
+        </a>{" "}
+        and{" "}
+        <a
+          href="#privacy"
+          className="text-primary hover:underline font-semibold transition-colors"
+        >
+          Privacy Policy
+        </a>
+        .
+      </div>
+
+      <div className="mt-8 text-left text-[0.875rem] text-text-main dark:text-gray-400 font-sans border-t border-neutral-100 dark:border-neutral-800 pt-6">
+        Already have an account?{" "}
+        <Link
+          to="/login"
+          className="text-primary font-semibold hover:underline transition-colors"
+        >
+          Login
+        </Link>
+      </div>
+    </div>
+  );
+};

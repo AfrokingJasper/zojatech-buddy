@@ -102,68 +102,12 @@ export default function VerifyOtp() {
   const isOtpFilled = otp.every((d) => d !== "");
 
   if (isSuccess) {
-    return (
-      <div className="flex flex-col items-center justify-between w-full max-w-[489px] h-[385px] p-[83px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300 text-left">
-        <EmailVerifiedIcon className="" />
-
-        <div className="flex flex-col gap-2 h-[78px] text-center">
-          <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
-            Email verified !
-          </h2>
-          <p className="text-sm text-text-main dark:text-gray-400 font-sans leading-relaxed">
-            The verified email address will be associated with your account.
-            Click on the button below to continue
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard", { replace: true })}
-          className="w-[160px] h-[40px] text-[0.875rem] font-semibold py-2 px-4 rounded-xl bg-primary hover:bg-[#e07500] text-white transition-all duration-200 shadow-md shadow-primary/10 hover:shadow-lg flex items-center justify-center cursor-pointer"
-        >
-          Continue
-        </button>
-      </div>
-    );
+    return <VerificationSuccess navigate={navigate} />;
   }
 
   if (viewStep === "confirm") {
     return (
-      <div className="flex flex-col items-center justify-between w-full max-w-[489px] h-[463px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl p-6  shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300 text-left">
-        <SentEmailIcon className="" />
-
-        <div className="flex flex-col gap-2 w-[310px] text-center mb-8">
-          <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
-            Confirm your email
-          </h2>
-          <p className="text-[0.875rem] text-text-main dark:text-gray-400 font-sans leading-relaxed">
-            We’ve sent an email to{" "}
-            <span className="font-semibold text-text-thick dark:text-white">
-              {email}
-            </span>{" "}
-            with a an OTP to confirm your account. Check your inbox to activate
-            your account. .
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setViewStep("otp")}
-          className=" text-[0.875rem] font-semibold w-[160px] h-[40px] py-2 px-4 rounded-xl bg-primary hover:bg-[#e07500] text-white transition-all duration-200 shadow-md shadow-primary/10 hover:shadow-lg flex items-center justify-center cursor-pointer"
-        >
-          Confirm email
-        </button>
-
-        <div className="mt-8 text-left text-[0.875rem] text-text-main dark:text-gray-400 font-sans border-t border-neutral-100 dark:border-neutral-800 pt-6">
-          Didn’t get the mail?{" "}
-          <button
-            onClick={() => setViewStep("otp")}
-            className="text-primary font-medium hover:underline transition-colors"
-          >
-            Resend
-          </button>
-        </div>
-      </div>
+      <ConfirmVerification email={email || ""} setViewStep={setViewStep} />
     );
   }
 
@@ -276,3 +220,79 @@ export default function VerifyOtp() {
     </div>
   );
 }
+
+const VerificationSuccess = ({
+  navigate,
+}: {
+  navigate: (path: string, options?: { replace?: boolean }) => void;
+}) => {
+  return (
+    <div className="flex flex-col items-center justify-between w-full max-w-[489px] h-[385px] p-[83px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300 text-left">
+      <EmailVerifiedIcon className="" />
+
+      <div className="flex flex-col gap-2 h-[78px] text-center">
+        <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
+          Email verified !
+        </h2>
+        <p className="text-sm text-text-main dark:text-gray-400 font-sans leading-relaxed">
+          The verified email address will be associated with your account. Click
+          on the button below to continue
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => navigate("/dashboard", { replace: true })}
+        className="w-[160px] h-[40px] text-[0.875rem] font-semibold py-2 px-4 rounded-xl bg-primary hover:bg-[#e07500] text-white transition-all duration-200 shadow-md shadow-primary/10 hover:shadow-lg flex items-center justify-center cursor-pointer"
+      >
+        Continue
+      </button>
+    </div>
+  );
+};
+
+const ConfirmVerification = ({
+  email,
+  setViewStep,
+}: {
+  email: string;
+  setViewStep: (step: "otp") => void;
+}) => {
+  return (
+    <div className="flex flex-col items-center justify-between w-full max-w-[489px] h-[463px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl p-6  shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300 text-left">
+      <SentEmailIcon className="" />
+
+      <div className="flex flex-col gap-2 w-[310px] text-center mb-8">
+        <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans m-0">
+          Confirm your email
+        </h2>
+        <p className="text-[0.875rem] text-text-main dark:text-gray-400 font-sans leading-relaxed">
+          We’ve sent an email to{" "}
+          <span className="font-semibold text-text-thick dark:text-white">
+            {email}
+          </span>{" "}
+          with a an OTP to confirm your account. Check your inbox to activate
+          your account. .
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setViewStep("otp")}
+        className=" text-[0.875rem] font-semibold w-[160px] h-[40px] py-2 px-4 rounded-xl bg-primary hover:bg-[#e07500] text-white transition-all duration-200 shadow-md shadow-primary/10 hover:shadow-lg flex items-center justify-center cursor-pointer"
+      >
+        Confirm email
+      </button>
+
+      <div className="mt-8 text-left text-[0.875rem] text-text-main dark:text-gray-400 font-sans border-t border-neutral-100 dark:border-neutral-800 pt-6">
+        Didn’t get the mail?{" "}
+        <button
+          onClick={() => setViewStep("otp")}
+          className="text-primary font-medium hover:underline transition-colors"
+        >
+          Resend
+        </button>
+      </div>
+    </div>
+  );
+};
