@@ -89,7 +89,7 @@ export default function MyPortfolioSection() {
 
         <div className="flex flex-col gap-5 rounded-[16px] bg-white p-6">
           <p className="text-xl font-bold leading-[133%] text-[#3B3B45]">
-            Trending posts
+            Potential Members
           </p>
 
           <ul className="grid grid-cols-3 xl:grid-cols-5 gap-2">
