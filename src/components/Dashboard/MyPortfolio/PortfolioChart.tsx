@@ -170,7 +170,7 @@ export default function PortfolioChart() {
   const data = useMemo(() => chartData[activeProvider], [activeProvider]);
 
   return (
-    <div className="rounded-[16px] bg-white p-6 h-[320px]">
+    <div className="rounded-[16px] bg-white p-6 xl:h-[320px] ">
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <p className="text-xl  font-bold leading-[133%] text-[#3B3B45]">
           Overview

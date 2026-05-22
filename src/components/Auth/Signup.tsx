@@ -1,16 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRegister } from "../../hooks/useRegister";
-import {
-  UserIcon,
-  GrayMailIcon,
-  MailIcon,
-  GoogleIcon,
-  PadlockIcon,
-  PasswordIcon,
-  PasswordSlashedIcon,
-  InfoIcon,
-} from "../Common/Icons";
+import { UserIcon, GrayMailIcon, MailIcon, GoogleIcon } from "../Common/Icons";
+import TextInput from "../Common/Input/TextInput";
+import PasswordInput from "../Common/Input/PasswordInput";
+import { loginSuccess } from "../../store/slices/authSlice";
+import { toast } from "react-hot-toast";
+import { useAppDispatch } from "../../store/hooks";
 
 export default function Signup() {
   const [step, setStep] = useState<"select" | "email">("select");
@@ -18,17 +14,12 @@ export default function Signup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [focusedFields, setFocusedFields] = useState<{ [k: string]: boolean }>(
-    {},
-  );
-  const [showPassword, setShowPassword] = useState(false);
   const { register, isLoading, error: apiError, fieldErrors } = useRegister();
   const [localErrors, setLocalErrors] = useState<{ [k: string]: string }>({});
 
-  const errors = { ...localErrors, ...fieldErrors };
+  const dispatch = useAppDispatch();
 
-  const hiddenRef = useRef<HTMLInputElement>(null);
-  const visibleRef = useRef<HTMLInputElement>(null);
+  const errors = { ...localErrors, ...fieldErrors };
 
   const isFilled =
     firstName.trim() !== "" &&
@@ -59,6 +50,21 @@ export default function Signup() {
     }
     setLocalErrors({});
 
+    // temp bypass mode till api is fixed
+    toast.success("Registration successful (Bypass Mode)");
+    dispatch(
+      loginSuccess({
+        token: "token-for-failed-auth",
+        user: {
+          id: email,
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+        },
+      }),
+    );
+    return;
+
     await register({
       first_name: firstName,
       last_name: lastName,
@@ -67,23 +73,9 @@ export default function Signup() {
     });
   };
 
-  const inputStyles = (field: keyof typeof errors) =>
-    `w-full pl-11 pr-12 py-3 text-[0.875rem] text-text-main rounded-xl border bg-white dark:bg-[#13141a] text-[#1D1D18] dark:text-white transition-all duration-200 font-sans text-sm focus:outline-none hover:bg-[#FFF9F2] dark:hover:bg-[#FF8600]/5 hover:border-primary/50 ${
-      errors[field]
-        ? "border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900/30"
-        : "border-neutral-200 dark:border-[#2e303a] focus:border-primary focus:ring-2 focus:ring-primary/20"
-    }`;
-
-  const labelStyles = (field: keyof typeof focusedFields, value: string) =>
-    `absolute pointer-events-none transition-all duration-500 ease-in-out font-sans select-none ${
-      focusedFields[field] || value !== ""
-        ? "left-0 top-[-22px] text-[0.875rem] text-[#5B6871] font-semibold"
-        : "left-11 top-1/2 -translate-y-1/2 text-[0.875rem] text-[#5B6871] font-normal normal-case"
-    }`;
-
   if (step === "select") {
     return (
-      <div className="w-full max-w-[489px] p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
+      <div className="w-full max-w-[489px] p-[20px] sm:p-[40px] xl:p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
         <h2 className="text-2xl font-bold text-text-thick dark:text-white font-sans text-left mb-8">
           Register your account
         </h2>
@@ -148,8 +140,8 @@ export default function Signup() {
   }
 
   return (
-    <div className="w-full max-w-[489px] p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
-      <div className="flex flex-col w-[389px] h-[472px] gap-[64px]">
+    <div className="w-full max-w-[489px] p-[20px] sm:p-[40px] xl:p-[50px] mx-auto bg-white dark:bg-[#181920] border border-[#DDE2E4] dark:border-[#2e303a]/60 rounded-2xl shadow-[10px_50px_50px_rgba(0,0,0,0.059)] dark:shadow-[10px_50px_50px_rgba(0,0,0,0.25)] transition-all duration-300">
+      <div className="flex flex-col w-full max-w-[389px] min-h-[472px] gap-[64px]">
         <div className="flex flex-col gap-[33px]">
           <div className="flex flex-col gap-[16px]">
             <div className="space-y-2">
@@ -169,200 +161,41 @@ export default function Signup() {
               )}
               <div className="flex flex-col gap-3">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="group relative pt-5">
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#B0BABF] transition-colors duration-200">
-                        <UserIcon className="w-6 h-6" />
-                      </span>
-                      <input
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        onFocus={() =>
-                          setFocusedFields((prev) => ({
-                            ...prev,
-                            first_name: true,
-                          }))
-                        }
-                        onBlur={() =>
-                          setFocusedFields((prev) => ({
-                            ...prev,
-                            first_name: false,
-                          }))
-                        }
-                        placeholder=""
-                        className={inputStyles("first_name")}
-                      />
-                      <label className={labelStyles("first_name", firstName)}>
-                        First Name
-                      </label>
-                    </div>
-                    {errors.first_name && (
-                      <p className="text-xs text-red-500 font-medium mt-1">
-                        {errors.first_name}
-                      </p>
-                    )}
-                  </div>
+                  <TextInput
+                    label="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    icon={<UserIcon className="w-6 h-6" />}
+                    error={errors.first_name}
+                    size="sm"
+                  />
 
-                  <div className="group relative pt-5">
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#B0BABF] transition-colors duration-200">
-                        <UserIcon className="w-6 h-6" />
-                      </span>
-                      <input
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        onFocus={() =>
-                          setFocusedFields((prev) => ({
-                            ...prev,
-                            last_name: true,
-                          }))
-                        }
-                        onBlur={() =>
-                          setFocusedFields((prev) => ({
-                            ...prev,
-                            last_name: false,
-                          }))
-                        }
-                        placeholder=""
-                        className={inputStyles("last_name")}
-                      />
-                      <label className={labelStyles("last_name", lastName)}>
-                        Last Name
-                      </label>
-                    </div>
-                    {errors.last_name && (
-                      <p className="text-xs text-red-500 font-medium mt-1">
-                        {errors.last_name}
-                      </p>
-                    )}
-                  </div>
+                  <TextInput
+                    label="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    icon={<UserIcon className="w-6 h-6" />}
+                    error={errors.last_name}
+                    size="sm"
+                  />
                 </div>
 
-                <div className="group relative pt-5">
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#B0BABF] transition-colors duration-200">
-                      <GrayMailIcon className="w-6 h-6" />
-                    </span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      onFocus={() =>
-                        setFocusedFields((p) => ({ ...p, email: true }))
-                      }
-                      onBlur={() =>
-                        setFocusedFields((p) => ({ ...p, email: false }))
-                      }
-                      placeholder=""
-                      className={inputStyles("email")}
-                    />
-                    <label
-                      className={`${labelStyles("email", email)} flex items-center gap-1.5`}
-                    >
-                      <span>Work email</span>
-                      {(focusedFields.email || email !== "") && (
-                        <span className="pointer-events-auto group/tooltip relative inline-block cursor-pointer">
-                          <InfoIcon className="w-3.5 h-3.5 text-[#84919A] hover:text-blue-500 hover:scale-110 transition-all duration-150" />
-                          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-neutral-900 text-white text-[11px] rounded shadow-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-200 pointer-events-none font-normal normal-case leading-relaxed whitespace-normal">
-                            Please enter your official work email address.
-                          </span>
-                        </span>
-                      )}
-                    </label>
-                  </div>
-                  {errors.email && (
-                    <p className="text-xs text-red-500 font-medium mt-1">
-                      {errors.email}
-                    </p>
-                  )}
-                </div>
+                <TextInput
+                  type="email"
+                  label="Work email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  icon={<GrayMailIcon className="w-6 h-6" />}
+                  error={errors.email}
+                  infoTooltip="Please enter your official work email address."
+                />
 
-                <div className="group relative pt-5">
-                  <div
-                    className={`relative w-full h-[46px] rounded-xl border bg-white dark:bg-[#13141a] transition-all duration-200 hover:bg-[#FFF9F2] dark:hover:bg-primary/5 hover:border-primary/50 ${
-                      errors.password
-                        ? "border-red-500 focus-within:ring-2 focus-within:ring-red-200 dark:focus-within:ring-red-900/30"
-                        : "border-neutral-200 dark:border-[#2e303a] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
-                    }`}
-                  >
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10 text-[#B0BABF] transition-colors duration-200">
-                      <PadlockIcon className="w-6 h-6" />
-                    </span>
-
-                    <div className="absolute left-11 right-12 top-1/2 -translate-y-1/2 h-[20px] overflow-hidden">
-                      <input
-                        ref={hiddenRef}
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onFocus={() =>
-                          setFocusedFields((p) => ({ ...p, password: true }))
-                        }
-                        onBlur={() =>
-                          setFocusedFields((p) => ({ ...p, password: false }))
-                        }
-                        placeholder=""
-                        tabIndex={showPassword ? -1 : 0}
-                        aria-hidden={showPassword}
-                        className={`absolute text-[0.875rem] inset-0 w-full h-full border-none bg-transparent p-0 outline-none focus:outline-none focus:ring-0 text-text-main dark:text-white font-sans text-sm transition-transform ease-in-out duration-300 ${
-                          showPassword ? "-translate-y-full" : "translate-y-0"
-                        }`}
-                      />
-
-                      <input
-                        ref={visibleRef}
-                        type="text"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onFocus={() =>
-                          setFocusedFields((p) => ({ ...p, password: true }))
-                        }
-                        onBlur={() =>
-                          setFocusedFields((p) => ({ ...p, password: false }))
-                        }
-                        placeholder=""
-                        tabIndex={showPassword ? 0 : -1}
-                        aria-hidden={!showPassword}
-                        className={`absolute text-[0.875rem] inset-0 w-full h-full border-none bg-transparent p-0 outline-none focus:outline-none focus:ring-0 text-text-main dark:text-white font-sans text-sm transition-transform ease-in-out duration-300 ${
-                          showPassword ? "translate-y-0" : "translate-y-full"
-                        }`}
-                      />
-                    </div>
-
-                    <label
-                      className={`absolute pointer-events-none transition-all duration-350 ease-in-out font-sans select-none z-20 ${
-                        focusedFields.password || password !== ""
-                          ? "left-0 top-[-22px] text-[0.875rem] text-text-main font-semibold"
-                          : "left-11 top-1/2 -translate-y-1/2 text-[0.875rem] text-text-main font-normal normal-case"
-                      }`}
-                    >
-                      Password
-                    </label>
-
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 text-[#B0BABF] hover:text-primary transition-colors focus:outline-none cursor-pointer"
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showPassword ? (
-                        <PasswordSlashedIcon className="w-6 h-6" />
-                      ) : (
-                        <PasswordIcon className="w-6 h-6" />
-                      )}
-                    </button>
-                  </div>
-
-                  {errors.password && (
-                    <p className="text-xs text-red-500 font-medium mt-1">
-                      {errors.password}
-                    </p>
-                  )}
-                </div>
+                <PasswordInput
+                  label="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={errors.password}
+                />
               </div>
 
               <button

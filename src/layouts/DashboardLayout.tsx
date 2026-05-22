@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { logout } from "../store/slices/authSlice";
+import ErrorOverlay from "../components/Common/ErrorOverlay";
 import buddyLogo from "../assets/Images/buddy-logo.png";
 import {
   MyPortfolioIcon,
@@ -8,8 +11,10 @@ import {
   AnalyticsIcon,
   PackIcon,
   SettingIcon,
+  SearchIcon,
 } from "../components/Common/Icons";
 import userImage from "../assets/Images/user-image.png";
+import { LogoutIcon } from "../components/Common/Icons";
 
 const dashboardNav = [
   { label: "My Portfolio", path: "portfolio", Icon: MyPortfolioIcon },
@@ -32,14 +37,29 @@ const pageTitles: Record<string, string> = {
 
 export default function DashboardLayout() {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
   const currentPath = location.pathname
     .replace("/dashboard/", "")
     .replace("/dashboard", "");
   const pageTitle = pageTitles[currentPath] ?? "Dashboard";
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  const userName = user
+    ? user.name ||
+      [user.first_name, user.last_name].filter(Boolean).join(" ") ||
+      user.email.split("@")[0]
+    : "Fortune Oliseyenum";
+
   return (
     <div className="h-screen overflow-hidden flex bg-[#F6F6F6] text-text-main">
+      <ErrorOverlay />
       <aside className="w-[250px] min-w-[250px] border-r border-neutral-200 bg-white flex flex-col h-full">
         <div className="flex items-center gap-3 px-5 py-6 pt-7">
           <img
@@ -98,15 +118,19 @@ export default function DashboardLayout() {
             />
           </div>
           <div className="flex flex-col items-center gap-1 pt-6 px-4">
-            <p className="text-base text-[#3B3B45] font-medium leading-[137%] text-text-h">
-              Fortune Oliseyenum
+            <p className="text-base text-[#3B3B45] font-medium leading-[137%] text-text-h truncate max-w-[170px]" title={userName}>
+              {userName}
             </p>
-            <p className="text-xs text-[#818187]">Software Developer</p>
+            <p className="text-xs text-[#818187] truncate max-w-[170px]" title={user?.email || "Software Developer"}>
+              {user?.email || "Software Developer"}
+            </p>
           </div>
           <button
             type="button"
-            className=" w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition hover:bg-primary hover:text-white"
+            onClick={handleLogout}
+            className="flex items-center justify-center gap-1 w-[170px] rounded-xl text-primary bg-[#FF860029] px-4 py-3 font-medium text-[0.875rem] transition hover:bg-primary hover:text-white"
           >
+            <LogoutIcon />
             Logout
           </button>
         </div>
@@ -123,10 +147,11 @@ export default function DashboardLayout() {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="relative">
+              <SearchIcon className="w-6 h-6 z-10 -translate-y-1/2 top-[50%] left-3 absolute" />
               <input
                 type="search"
                 placeholder="Search..."
-                className="h-[48px] w-[422px] rounded-2xl bg-white px-5 text-sm text-text-main outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="h-[48px] w-[422px] pl-10 rounded-2xl bg-white px-5 text-sm text-text-main outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </div>
             <button

@@ -30,13 +30,15 @@ export default function PortfolioStatCard({
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col justify-center h-[49px]">
-          <p className="text-[1.5625rem] text-[#3B3B45] font-bold text-text-h">
+          <p className=" text-xl xl:text-[1.5625rem] text-[#3B3B45] font-bold text-text-h">
             {figure}
           </p>
-          <p className="text-[0.75rem]  text-text-main">{title}</p>
+          <p className="text-[0.75rem] leading-[137%] text-text-main">
+            {title}
+          </p>
         </div>
         <div
-          className="grid h-12 w-12 place-items-center rounded-full"
+          className="grid xl:h-12 xl:w-12 h-7 w-7 place-items-center rounded-full"
           style={{
             backgroundColor: hoverBg,
             color: baseColor,
